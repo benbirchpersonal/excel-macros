@@ -1,0 +1,33 @@
+Sub copyRange()
+
+Dim sheet As Worksheet
+Set sheet = ActiveCell.Worksheet
+
+Dim Weight As Double
+Dim InvValue As Currency
+Dim GM As Currency
+
+
+Dim i As Long
+For i = 9 To ActiveCell.Worksheet.UsedRange.Rows.Count
+            If (Cells(i, 7).Value) = (Cells(ActiveCell.Row, 7).Value) Then ' if prouct is the same
+                If (Cells(i, 3).Value) = (Cells(ActiveCell.Row, 3).Value) Then ' if Customer is the same
+                    Weight = Weight + (Cells(i, 9).Value)
+                    InvValue = InvValue + ((Cells(i, 12)))
+                    GM = GM + Cells(i, 15).Value
+                    Cells(i, "C").Interior.ColorIndex = 8
+                    Cells(i, "G").Interior.ColorIndex = 8
+                    
+                End If
+        End If
+Next i
+
+Weight = Weight / 1000
+sheet.Range("A" & ActiveCell.Worksheet.UsedRange.Rows.Count + 1).Value = InvValue
+sheet.Range("B" & ActiveCell.Worksheet.UsedRange.Rows.Count + 1).Value = Weight
+sheet.Range("C" & ActiveCell.Worksheet.UsedRange.Rows.Count + 1).Value = GM
+
+sheet.Range(sheet.Range("A" & ActiveCell.Worksheet.UsedRange.Rows.Count + 1), sheet.Range("C" & ActiveCell.Worksheet.UsedRange.Rows.Count + 1)).Copy
+
+
+End Sub
